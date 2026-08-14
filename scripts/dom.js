@@ -110,12 +110,15 @@ plusBtn.addEventListener('click',()=>{
     console.log(typeof(countNumSpan.dataset.count)); //문자로 인식, 계산불가
     let currentNum = Number(countNumSpan.dataset.count); //문자를 숫자로 변환해서 저장
     console.log(currentNum, typeof(currentNum)); //숫자로 변경된 점 확인
-    
-    //숫자 1씩 증가되는 값을 저장하는 변수
-    let plusTotal = ++currentNum; 
-    //데이터의 값을 업데이트가 되지 않아서 2에서 멈춤. 
-    countNumSpan.dataset.count = plusTotal;
-    countNumSpan.textContent = plusTotal;//증가된 변수를 실제 화면에서 출력
+    //재고수량 10
+    currentNum < 9 ? (()=>{
+        //숫자 1씩 증가되는 값을 저장하는 변수
+        let plusTotal = ++currentNum; 
+        //데이터의 값을 업데이트가 되지 않아서 2에서 멈춤. 
+        countNumSpan.dataset.count = plusTotal;
+        countNumSpan.textContent = plusTotal;//증가된 변수를 실제 화면에서 출력
+
+    })(): alert('촤대주문수량입니다.')
 })
 
 //변수 목적 정리

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <script src="./scripts/dom02.js" defer></script>
+    <style>
+        /* 내부스타일시트 */
+        /* 모바일 빨간색 */
+        /* 데스크톱 파란색 */
+        /* 자바스크립트에서 복사한 대상은 html에 태그가 안보일 뿐 태그자체를 복사한 것으로 css에서 선택자로 사용가능 */
+        header {}
+        header .d_menu {}
+        header .d_menu nav {}
+        header .d_menu nav a {color: blue;}
+        header .m_menu {}
+        header .m_menu nav {}
+        header .m_menu nav a {color: red;}
+    </style>
+</head>
+<body>
+    <header>
+        <!-- 데스크탑 메뉴(js 동적붙여넣기대상) -->
+        <div class="d_menu"><!-- 붙여넣기위치 --></div>
+        <!-- 모바일 메뉴(태그0) -->
+        <div class="m_menu">
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Project</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>

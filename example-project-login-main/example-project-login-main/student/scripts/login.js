@@ -31,28 +31,101 @@ function loginTabFunc(index) {
 
 //목표2) 기존회원-아이디를 입력안하고 기존회원로그인 버튼 클릭 시 '아이디를 입력하세요' 경고창 출력
 //변수
-//기존회원
+//기존회원 - 아이디, 비밀번호, 로그인 버튼 변수
 const userIdCheck = document.querySelector('#user-id');
 const userIdCheckBtn = document.querySelector('#member-login');
 const userPw = document.querySelector('#user-pw');
-//비회원
+const pwViaibleBtn =document.querySelector('#member-pw-visible');
+
+//비회원 - 주문자명, 주문번호, 비회원 주문비밀번호, 주문조회 버튼 필수
 const nonUserId = document.querySelector('#non-user-id');
 const nonUserpw = document.querySelector('#non-user-pw');
 const nonUserOrber = document.querySelector('#non-user-order');
 const nonMemberBtn = document.querySelector('#non-member-login');
-console.log(userIdCheck,userIdCheckBtn,userPw );
+const pwVisibleNonBtn = document.querySelector('#non-member-pw-visible');
 
-userIdCheckBtn.addEventListener('click', ()=>{
-    warningWindow(userIdCheck, '아이디'); 
-    warningWindow(userPw, '비밀번호');
-})
+console.log(userIdCheck,userIdCheckBtn,userPw,pwViaibleBtn,pwVisibleNonBtn );
 
-nonMemberBtn.addEventListener('click', ()=>{
-    warningWindow(nonUserId, '주문자명')
-    warningWindow(nonUserOrber, '주문자번호')
-    warningWindow(nonUserpw, '비회원비번')
-})
+// userIdCheckBtn.addEventListener('click', ()=>{
+//     warningWindow(userIdCheck, '아이디'); 
+//     warningWindow(userPw, '비밀번호');
+// })
+
+// nonMemberBtn.addEventListener('click', ()=>{
+//     warningWindow(nonUserId, '주문자명')
+//     warningWindow(nonUserOrber, '주문자번호')
+//     warningWindow(nonUserpw, '비회원비번')
+// })
 
 function warningWindow(dom,writeBox) {
     if(dom.value == ''){alert(`${writeBox}를(을) 입력하세요`);}
 }
+
+//기본회원) 논리연산자 활용한 아이디&비밀번호 동시 검사 수행 이벤트 + 함수
+//목표2) 아이디, 비밀번호를 모두 적으면 '000님 환영합니다'
+userIdCheckBtn.addEventListener('click', ()=>{
+    //목표) 아이디, 비밀번호 중 하나라도 안적으면 '000을 입력하세요.'
+    //유저 아이디의 값이 빈 문자열인가? 비밀번호`도` 값이 빈 문자열이 맞는가?
+    // if(userIdCheck.value == '' && userPw.value == ''){}
+    //유저 아이디 값이 빈 문자열인가? -> 비밀번호 검사 안하고 블록처리
+    if(userIdCheck.value == '' || userPw.value == ''){
+        //아이디가 참인지, 비밀번호가 참인지를 구분하는 조건문
+        if(userIdCheck.value == '' && userPw.value == ''){
+            alert('아이디와 비빌번호를 입력하세요');
+        }else if(userIdCheck.value == ''){ // 하나의 조건세트에서 두번째 조건식이 필요할 때
+            alert('아이디를 입력하세요');
+        }else{//조건세트 안에 거짓을 처리할 때 (마지막에 한 번만 작성 가능)
+            alert('비번을 입력하세요');
+        }
+    }
+        //아이디 비밀번호 모두 썼을 때 블록 실행
+        // if(userIdCheck.value != '' && userPw.value !== ''){
+        //     alert(`${userIdCheck.value}님 환영합니다`)
+        // }
+        //삼항조건 ? 참:거짓
+        //조건식 1개로 처리하는 if-else를 간편하게 쓰고 싶을 때
+        userIdCheck.value != '' && userPw.value !== '' ?
+        alert(`${userIdCheck.value}님 환영합니다`) : null;
+        //null로 사용도 가능 -> 거짓이라는 뜻
+});
+
+//비회원 이벤트-함수
+nonMemberBtn.addEventListener('click', ()=>{
+    //목표1) 주문자명, 주문번호, 비회용주문비번을 모두 썼을 때 "ooo님 주문은 배송중입니다." 
+    // if(nonUserId.value !== '' && nonUserpw.value !== '' && nonUserOrber.value !== '' ){
+    //     alert(`${nonUserId.value}님 주문은 배송중입니다.`)
+    // }
+    //목표2) 주문자명, 주문번호, 비회원주문비번을 모두 쓰지 않았을 때 '주문자명, 주문번호, 주문비번을 입력해주세요.'
+    if(nonUserId.value == '' || nonUserpw.value == '' || nonUserOrber.value == '' ){
+        if(nonUserId.value == '' && nonUserpw.value == '' && nonUserOrber.value == ''){
+        alert('주문자명, 주문번호, 비회원 비번을 입력해주세요');
+        }else if(nonUserId.value == ''){
+            alert('주문자명을 입력해주세요');
+        }else if (nonUserOrber.value == ''){
+            alert('주문번호를 입력해주세요');
+        }else {
+            alert('비회원 비번을 입력해주세요');
+        }
+    }
+    //삼항조건
+    nonUserId.value !== '' && nonUserpw.value !== '' && nonUserOrber.value !== '' ?
+    alert(`${nonUserId.value}님 주문은 배송중입니다.`) : null;
+});
+
+//기본회원) 눈 아이콘 클릭 시 비밀번호 보이기/ 다시 누르면 비밀번호 숨기기
+let pwVisibleStatus = 0; // 비번 숨김상태(••••)
+pwViaibleBtn.addEventListener('click',()=>{
+    pwVisibleStatus == 0 ?
+    userPw.type = 'text'
+    : userPw.type = 'password';
+    pwVisibleStatus = !pwVisibleStatus;
+});
+
+//비회원주문 비밀번호
+let pwVisibleNon = 0; // 비번숨김상태
+pwVisibleNonBtn.addEventListener('click', ()=>{
+    pwVisibleNon == 0 ?
+    nonUserpw.type = 'text'
+    : nonUserpw.type = 'password';
+    pwVisibleNon = !pwVisibleNon;
+})

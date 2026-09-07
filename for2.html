@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>반복문 종류와 활용</title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <style>
+        /* 내부스타일시트 */
+    </style>
+</head>
+<body>
+    <!-- 태그작성위치 -->
+    <h1>while</h1>
+    <p>whlie문은 반복횟수가 정해져있찌 않을 때 사용</p>
+    <p>조건식은 while의 () 안에 쓰고 증감식은 {}안에 작성, 초기값은 밖</p>
+    <input type="text" id="age" value="" placeholder="나이를 입력하세요">
+
+    <h1>베스트 상품</h1>
+    <section style="background: yellow;"><!-- 붙이기 --></section>
+    <table id="t"></table>
+
+    <script>
+        /* 내부스크립트위치 (defer불가) */
+        //while 영화관람연령(12세 이상 관람가)
+        const ageInput = document.querySelector('#age');
+        while(ageInput.value){
+            console.log('test');
+        }
+        // while 무한 반복 문제
+        //let cssQ = confirm('상하반전은 scaleY(-1)이다.'); //1번 실행 (whlie)
+        let cssQ = true //1번 실행 (whlie)
+        while(cssQ == false){ //멈추는 명령이 따로 없는 한 무한실행(whlie 안)
+            console.log('오답입니다');
+            cssQ = confirm('상하반전은 scaleY(-1)이다.') //오답일 때 재질문
+            //break; //무한 반복 강제 종료
+        }
+        console.log('정답입니다'); //while문 밖 (whlie이 거짓이 되어야 만나는 위치)
+        //continue문
+        for(var i=0; i<10; i++){
+            continue; //continue-> 아래구문을 생략하고 반복실행  
+            //bareak-> 브레이크를 만나자 밖으로 나가버림 (반복문을 더이상 실행하지 않고 나감)
+            console.log('반복'+i);
+        }console.log('종료'+i);
+
+        //구구단 2단
+        //바깥쪽 1번 안쪽 9번
+        for(let i=2; i<=9; i++){
+            //console.log(`${i}X${i}=${i*i}`);
+            for(let j=1; j<10; j++){
+                console.log(`${i}X${j}=${i*j}`);
+            } 
+            console.log('---------------------------');
+        }
+
+        //ul*2-li*5
+        // const ul = document.createElement('ul');
+        // const li = document.createElement('li');
+        // ul.classList.add('product_wrap');
+        // li.classList.add('item');
+        // console.log(ul,li);
+        const section = document.querySelector('section');
+
+        createList(2,3);
+        function createList(num1,num2){
+            for(let i=0; i<num1; i++){
+                const ul = document.createElement('ul');
+                ul.classList.add('product_wrap');
+                for(let k=0; k<num2; k++){
+                    const li = document.createElement('li');
+                    li.classList.add('item');
+                    li.textContent = '아메리카노 1500원';
+                    ul.appendChild(li);
+                    //console.log(li);
+                }
+                //console.log(ul);
+                ul.style.borderBottom = '2px solid #000'
+                section.appendChild(ul);
+            }
+        }
+        //tr은 행 td는 내용열
+        //2행 3열 표
+        //tr*2-td*3
+        //const tr = document.createElement('tr');
+        //const td = document.createElement('td');
+        const table = document.querySelector('table');
+        createTable(2, 4)
+        function createTable(tr,td){
+            for(let i=0; i<tr; i++){
+            const tr = document.createElement('tr');
+            tr.textContent = '커피메뉴';
+            for(let k=0; k<td; k++){
+                const td = document.createElement('td');
+                td.textContent = '딸기프라페';
+                td.style.border = '1px solid #000'
+                //console.log(td);
+                tr.appendChild(td);
+            }//console.log(tr);
+            table.appendChild(tr);
+        }
+        }
+    </script>
+</body><!-- body종료위치 -->
+</html>
